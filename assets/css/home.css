@@ -22,7 +22,7 @@
     display: flex;
     width: var(--width-main-list);
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 12px 4px;
 }
 
 .main-item {
@@ -506,6 +506,43 @@
 
 .modal-power__shutdown:hover {
     background: var(--hover-item);
+}
+
+/* --------------------------------------- */
+
+.boxApp {
+    position: fixed;
+    width: 60%;
+    height: 70vh;
+    background: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.boxApp-head {
+    --height-head: 32px;
+    height: var(--height-head);
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.boxApp-head__icon {
+    height: 100%;
+    padding: 4px 12px;
+    width: 40px;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 0.25s;
+}
+
+.boxApp-head__icon:hover {
+    cursor: pointer;
+    background: #ccc;
 }
 
 /* -------------------------------------- */

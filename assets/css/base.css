@@ -23,3 +23,57 @@ body {
 body {
     min-height: 100vh;
 }
+
+.overplay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all ease 0.25s;
+}
+
+.overplay.active {
+    visibility: visible;
+    pointer-events: all;
+}
+
+.overplay-body {
+    width: 200px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border-radius: 4px;
+    visibility: hidden;
+    transform: scale(0);
+    transition: all ease 0.25s;
+}
+
+.overplay-body.active {
+    visibility: visible;
+    transform: scale(1);
+}
+
+.overplay-heading {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.overplay-inp {
+    border: none;
+    outline: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-align: center;
+    width: 180px;
+    background: rgb(214, 220, 255);
+}

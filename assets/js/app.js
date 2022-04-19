@@ -10,7 +10,7 @@ const app = (() => {
         JSON.parse(localStorage.getItem("applications")) || applicationsInit;
 
     return {
-        lastClicked: 0,
+        zIdx: 1,
         renderIcon() {
             $(".main-list").style.width = `${sizeListInit[sizeList]}px`;
 
@@ -26,11 +26,13 @@ const app = (() => {
             const htmls = applications
                 .map((app, index) => {
                     return `
-                <li class="main-item" index="${index}" title="${app.name}">
+                <li class="main-item" data-index="${index}" title="${app.name}">
                     <div class="main-item__icon">
                         <img src="${app.icon}" alt="">
                     </div>
-                    <input readonly value="${app.name}" class="main-item__name">    
+                    <div  class="main-item__name">
+                        ${app.name}
+                    </div>   
                 </li>
                 `;
                 })
@@ -56,14 +58,15 @@ const app = (() => {
             types.forEach((item, index) => {
                 if (item == type) {
                     iconApp = icons[index];
-                    nameApp = name || names[index];
+                    if (name) nameApp = name;
+                    if (!name) nameApp = names[index];
                 }
             });
 
             const obj = {
                 id: applications.length,
-                iconApp,
-                nameApp,
+                icon: iconApp,
+                name: nameApp,
             };
 
             applications.push(obj);
@@ -72,7 +75,6 @@ const app = (() => {
         },
         handle() {
             const _this = this;
-            const mainItems = $$(".main-item");
             const powerOnBtn = $(".power-on-btn");
             const modalPower = $(".modal-power");
             const modalPowerLoading = $(".modal-power__loading");
@@ -85,6 +87,8 @@ const app = (() => {
             const main = $(".main");
             const rightBox = $(".right-click");
             const itemsRightClick = $$(".right-click__item");
+            const overplay = $(".overplay");
+            const overplayBd = $(".overplay-body");
             const widthMain = main.offsetWidth;
             const heightMain = main.offsetHeight;
             const widthRightBox = rightBox.offsetWidth;
@@ -208,6 +212,24 @@ const app = (() => {
                 setTimeout(loginScreen, 3000);
             };
 
+            //overplay
+            const showInpFileName = () => {
+                overplay.classList.add("active");
+                overplayBd.classList.add("active");
+            };
+
+            const hideInpFileName = () => {
+                overplay.classList.remove("active");
+                overplayBd.classList.remove("active");
+            };
+
+            overplay.onclick = function (e) {
+                const body = e.target.closest(".overplay-body");
+                if (!body) {
+                    hideInpFileName();
+                }
+            };
+
             //size icon
             const styleList = $$(".size-icon .right-click__item");
             styleList.forEach((item) => {
@@ -257,13 +279,30 @@ const app = (() => {
             //new app
             const type = ["folder", "shortcut", "text", "word"];
             const newAppList = $$(".new-app-list .right-click__item");
+            const inpFileName = $(".overplay-inp");
 
+            let idx;
             newAppList.forEach((item, index) => {
                 item.onclick = function () {
-                    _this.newApp(type[index]);
+                    inpFileName.focus();
+                    showInpFileName();
+                    idx = index;
                     rightBox.style.visibility = "hidden";
                 };
             });
+
+            inpFileName.onkeypress = function (e) {
+                if (e.which == 13) {
+                    const value = inpFileName.value.trim();
+                    if (value) {
+                        _this.newApp(type[idx], value);
+                    } else {
+                        _this.newApp(type[index]);
+                    }
+                    inpFileName.value = null;
+                    hideInpFileName();
+                }
+            };
 
             //onclick main list
             const listApp = $(".main-list");
@@ -289,6 +328,22 @@ const app = (() => {
                     setTimeout(() => {
                         $(".main-list").style.visibility = "visible";
                     }, 300);
+                }
+            };
+
+            window.onkeyup = function (e) {
+                const activeItem = $(".main-item.active");
+                if (activeItem && e.keyCode == 46) {
+                    const idx = Number.parseInt(activeItem.dataset.index);
+
+                    if (idx !== 0 && idx !== 1) {
+                        applications.splice(idx, 1);
+                        localStorage.setItem(
+                            "applications",
+                            JSON.stringify(applications)
+                        );
+                        _this.renderApp();
+                    }
                 }
             };
         },

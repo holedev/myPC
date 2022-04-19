@@ -34,6 +34,11 @@ const applicationsInit = [
     },
     {
         id: 2,
+        icon: "./assets/img/apps/icon-zalo.png",
+        name: "Zalo",
+    },
+    {
+        id: 3,
         icon: "./assets/img/apps/icon-garena.png",
         name: "Garena",
     },
