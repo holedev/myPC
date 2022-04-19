@@ -53,9 +53,22 @@
 }
 
 .main-item__name {
+    border: none;
+    outline: none;
     font-size: 1.1rem;
-    color: #fff;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+.main-item__name:read-only {
+    background: transparent;
+    color: #fff;
+}
+
+.main-item__name.active {
+    background: white;
+    color: #030303;
 }
 
 /* ----------------------------------------------- */

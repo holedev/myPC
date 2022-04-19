@@ -38,5 +38,6 @@ const applicationsInit = [
         name: "Garena",
     },
 ];
+const sizeListInit = [250, 350, 500];
 
-export { weeks, months, applicationsInit };
+export { weeks, months, applicationsInit, sizeListInit };

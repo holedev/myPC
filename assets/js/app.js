@@ -1,23 +1,25 @@
-import { weeks, months, applicationsInit } from "./init.js";
+import { weeks, months, applicationsInit, sizeListInit } from "./init.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const sizeIcon = JSON.parse(localStorage.getItem("sizeIcon")) || {};
+let sizeList = JSON.parse(localStorage.getItem("sizeList")) || 0;
 
 const app = (() => {
     const applications =
         JSON.parse(localStorage.getItem("applications")) || applicationsInit;
 
     return {
-        renderLocal() {
-            $(".main-list").style.width = sizeIcon.widthList;
-            if (sizeIcon.widthList == "250px") {
+        lastClicked: 0,
+        renderIcon() {
+            $(".main-list").style.width = `${sizeListInit[sizeList]}px`;
+
+            if (sizeList == 0) {
                 $$(".size-icon .right-click__item")[2].classList.add("active");
-            } else if (sizeIcon.widthList == "500px") {
-                $$(".size-icon .right-click__item")[0].classList.add("active");
-            } else {
+            } else if (sizeList == 1) {
                 $$(".size-icon .right-click__item")[1].classList.add("active");
+            } else {
+                $$(".size-icon .right-click__item")[0].classList.add("active");
             }
         },
         renderApp() {
@@ -28,16 +30,14 @@ const app = (() => {
                     <div class="main-item__icon">
                         <img src="${app.icon}" alt="">
                     </div>
-                    <div class="main-item__name">
-                        ${app.name}
-                    </div>
+                    <input readonly value="${app.name}" class="main-item__name">    
                 </li>
                 `;
                 })
                 .join("");
             $(".main-list").innerHTML = htmls;
         },
-        newApp(type) {
+        newApp(type, name) {
             const types = ["folder", "shortcut", "text", "word"];
             const icons = [
                 "./assets/img/apps/icon-folder.png",
@@ -52,18 +52,18 @@ const app = (() => {
                 "New Word",
             ];
 
-            let icon, name;
+            let iconApp, nameApp;
             types.forEach((item, index) => {
                 if (item == type) {
-                    icon = icons[index];
-                    name = names[index];
+                    iconApp = icons[index];
+                    nameApp = name || names[index];
                 }
             });
 
             const obj = {
                 id: applications.length,
-                icon,
-                name,
+                iconApp,
+                nameApp,
             };
 
             applications.push(obj);
@@ -92,6 +92,7 @@ const app = (() => {
 
             //right click
             main.oncontextmenu = function (e) {
+                e.preventDefault();
                 let top, left;
                 e.clientX + widthRightBox <= widthMain
                     ? (left = e.clientX)
@@ -105,7 +106,6 @@ const app = (() => {
                     left: left + "px",
                     visibility: "visible",
                 });
-                return false;
             };
 
             //hover menu right click
@@ -153,7 +153,7 @@ const app = (() => {
                 };
             });
 
-            //power on off
+            //power status
             const loadingScreen = (status) => {
                 modalPower.classList.add("active");
                 modalPowerOn.classList.remove("active");
@@ -209,8 +209,8 @@ const app = (() => {
             };
 
             //size icon
-            const sizeList = $$(".size-icon .right-click__item");
-            sizeList.forEach((item) => {
+            const styleList = $$(".size-icon .right-click__item");
+            styleList.forEach((item) => {
                 item.onclick = function () {
                     const itemActive = $(".right-click__item.active");
                     if (itemActive) {
@@ -218,17 +218,17 @@ const app = (() => {
                     }
 
                     if (this.classList.contains("size-L")) {
-                        $(".main-list").style.width = "500px";
+                        sizeList = 2;
                     }
                     if (this.classList.contains("size-M")) {
-                        $(".main-list").style.width = "350px";
+                        sizeList = 1;
                     }
                     if (this.classList.contains("size-S")) {
-                        $(".main-list").style.width = "250px";
+                        sizeList = 0;
                     }
-                    sizeIcon.widthList = $(".main-list").style.width;
-                    localStorage.setItem("sizeIcon", JSON.stringify(sizeIcon));
+                    localStorage.setItem("sizeList", JSON.stringify(sizeList));
                     this.classList.add("active");
+                    _this.renderIcon();
                     _this.renderApp();
                 };
             });
@@ -257,6 +257,7 @@ const app = (() => {
             //new app
             const type = ["folder", "shortcut", "text", "word"];
             const newAppList = $$(".new-app-list .right-click__item");
+
             newAppList.forEach((item, index) => {
                 item.onclick = function () {
                     _this.newApp(type[index]);
@@ -283,7 +284,7 @@ const app = (() => {
             window.onkeydown = function (e) {
                 if (e.which === 116) {
                     e.preventDefault();
-                    console.log("a");
+
                     $(".main-list").style.visibility = "hidden";
                     setTimeout(() => {
                         $(".main-list").style.visibility = "visible";
@@ -292,7 +293,7 @@ const app = (() => {
             };
         },
         start() {
-            this.renderLocal();
+            this.renderIcon();
             this.renderApp();
             this.handle();
         },
