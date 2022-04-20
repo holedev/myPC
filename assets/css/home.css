@@ -309,6 +309,43 @@
     width: 310px;
 }
 
+.footer-main {
+    display: flex;
+    align-items: center;
+}
+
+.footer-main__icon {
+    height: 100%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.footer-main__icon::after {
+    position: absolute;
+    content: "";
+    width: 90%;
+    height: 4px;
+    background: rgb(161, 161, 248);
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+}
+
+.footer-main__icon.active {
+    background: #ccc;
+}
+
+.footer-main__icon:hover {
+    cursor: pointer;
+}
+
+.footer-main__icon img {
+    width: 50%;
+}
+
 .footer-right {
     display: flex;
     margin-left: auto;
@@ -517,7 +554,14 @@
     background: white;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0) scale(0);
+    visibility: hidden;
+    transition: all ease 0.25s;
+}
+
+.boxApp.active {
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .boxApp-head {

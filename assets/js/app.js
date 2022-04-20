@@ -3,13 +3,13 @@ import { weeks, months, applicationsInit, sizeListInit } from "./init.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-let sizeList = JSON.parse(localStorage.getItem("sizeList")) || 0;
-
 const app = (() => {
+    let sizeList = JSON.parse(localStorage.getItem("sizeList")) || 0;
     const applications =
         JSON.parse(localStorage.getItem("applications")) || applicationsInit;
 
     return {
+        appRunning: [],
         zIdx: 1,
         renderIcon() {
             $(".main-list").style.width = `${sizeListInit[sizeList]}px`;
@@ -25,19 +25,61 @@ const app = (() => {
         renderApp() {
             const htmls = applications
                 .map((app, index) => {
-                    return `
-                <li class="main-item" data-index="${index}" title="${app.name}">
-                    <div class="main-item__icon">
-                        <img src="${app.icon}" alt="">
-                    </div>
-                    <div  class="main-item__name">
-                        ${app.name}
-                    </div>   
-                </li>
-                `;
+                    if (!app.isDeleted) {
+                        return `
+                    <li class="main-item" data-index="${index}" title="${app.name}">
+                        <div class="main-item__icon">
+                            <img src="${app.icon}" alt="">
+                        </div>
+                        <div  class="main-item__name">
+                            ${app.name}
+                        </div>   
+                    </li>
+                    `;
+                    }
                 })
                 .join("");
             $(".main-list").innerHTML = htmls;
+        },
+        renderAppRunning() {
+            const htmls = this.appRunning
+                .map((app, index) => {
+                    return `
+                    <div class="boxApp ${app.isActive ? "active" : ""}">
+                        <div class="boxApp-head">
+                            <div class="boxApp-head__icon">
+                                <i class="fa-solid fa-minus"></i>
+                            </div>
+                            <div class="boxApp-head__icon">
+                                <i class="fa-regular fa-window-restore"></i>
+                            </div>
+                            <div data-index=${
+                                app.idxApp
+                            } class="boxApp-head__icon close-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                        </div>
+                        <div class="boxApp-body">
+                            ${applications[app.idxApp].name}
+                        </div>
+                    </div>
+                    `;
+                })
+                .join("");
+
+            const htmlsFooter = this.appRunning
+                .map((app, index) => {
+                    return `
+                    <div data-index=${app.idxApp} class="${
+                        app.isActive ? "active" : ""
+                    } footer-main__icon">
+                        <img src=${applications[app.idxApp].icon} alt="" />
+                    </div>
+                `;
+                })
+                .join("");
+            $(".boxAppWrap").innerHTML = htmls;
+            $(".footer-main").innerHTML = htmlsFooter;
         },
         newApp(type, name) {
             const types = ["folder", "shortcut", "text", "word"];
@@ -67,6 +109,7 @@ const app = (() => {
                 id: applications.length,
                 icon: iconApp,
                 name: nameApp,
+                isDeleted: 0,
             };
 
             applications.push(obj);
@@ -319,6 +362,46 @@ const app = (() => {
                 }
             };
 
+            listApp.ondblclick = (e) => {
+                const app = e.target.closest(".main-item");
+
+                if (app) {
+                    const idx = Number.parseInt(app.dataset.index);
+
+                    const idxExist = _this.appRunning.find(
+                        (app) => app.idxApp === idx
+                    );
+                    if (!idxExist) {
+                        _this.appRunning.forEach((app) => (app.isActive = 0));
+                        const obj = {
+                            idxApp: idx,
+                            isActive: 1,
+                        };
+                        _this.appRunning.push(obj);
+                    }
+                    _this.renderAppRunning();
+                }
+            };
+
+            //onclick footer main
+            const mainFooter = $(".footer-main");
+            mainFooter.onclick = (e) => {
+                const item = e.target.closest(".footer-main__icon");
+                if (item) {
+                    const idx = Number.parseInt(item.dataset.index);
+
+                    _this.appRunning.forEach((app) => {
+                        if (app.idxApp === idx) {
+                            app.isActive = 1;
+                        } else {
+                            app.isActive = 0;
+                        }
+                    });
+
+                    _this.renderAppRunning();
+                }
+            };
+
             //window
             window.onkeydown = function (e) {
                 if (e.which === 116) {
@@ -337,13 +420,61 @@ const app = (() => {
                     const idx = Number.parseInt(activeItem.dataset.index);
 
                     if (idx !== 0 && idx !== 1) {
-                        applications.splice(idx, 1);
+                        applications[idx].isDeleted = 1;
                         localStorage.setItem(
                             "applications",
                             JSON.stringify(applications)
                         );
                         _this.renderApp();
                     }
+                }
+            };
+
+            //window
+            window.onclick = (e) => {
+                const startIconE = e.target.closest(".footer-left__start-icon");
+                const startBoxE = e.target.closest(".start-box");
+                const mainItem = e.target.closest(".main-item");
+                const rightClickBox = e.target.closest(".right-click");
+                const closeApp = e.target.closest(
+                    ".boxApp-head__icon.close-btn"
+                );
+
+                if (
+                    !startIconE &&
+                    !startBoxE &&
+                    $(".start-box").classList.contains("active")
+                ) {
+                    $(".start-box").classList.remove("active");
+                }
+
+                if (!mainItem) {
+                    const itemActive = $(".main-item.active");
+                    if (itemActive) {
+                        itemActive.classList.remove("active");
+                    }
+                }
+
+                if (!rightClickBox) {
+                    $(".right-click").style.visibility = "hidden";
+                }
+
+                if (closeApp) {
+                    closeApp.parentElement.parentElement.classList.remove(
+                        "active"
+                    );
+                    const idx = Number.parseInt(closeApp.dataset.index);
+
+                    _this.appRunning = _this.appRunning.filter(
+                        (app) => app.idxApp !== idx
+                    );
+
+                    if (_this.appRunning.length > 0) {
+                        _this.appRunning[
+                            _this.appRunning.length - 1
+                        ].isActive = 1;
+                    }
+                    _this.renderAppRunning();
                 }
             };
         },
@@ -398,33 +529,6 @@ const footer = (() => {
 
             leftStartBox.onmouseout = () => {
                 leftStartBox.classList.remove("active");
-            };
-
-            //window
-            window.onclick = (e) => {
-                const startIconE = e.target.closest(".footer-left__start-icon");
-                const startBoxE = e.target.closest(".start-box");
-                const mainItem = e.target.closest(".main-item");
-                const rightClickBox = e.target.closest(".right-click");
-
-                if (
-                    !startIconE &&
-                    !startBoxE &&
-                    startBox.classList.contains("active")
-                ) {
-                    startBox.classList.remove("active");
-                }
-
-                if (!mainItem) {
-                    const itemActive = $(".main-item.active");
-                    if (itemActive) {
-                        itemActive.classList.remove("active");
-                    }
-                }
-
-                if (!rightClickBox) {
-                    $(".right-click").style.visibility = "hidden";
-                }
             };
         },
         start() {
