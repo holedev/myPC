@@ -10,7 +10,6 @@ const app = (() => {
 
     return {
         appRunning: [],
-        zIdx: 1,
         renderIcon() {
             $(".main-list").style.width = `${sizeListInit[sizeList]}px`;
 
@@ -60,7 +59,7 @@ const app = (() => {
                             </div>
                         </div>
                         <div class="boxApp-body">
-                            ${applications[app.idxApp].name}
+                            ${applications[app.idxApp].htmlRender || " "}
                         </div>
                     </div>
                     `;
