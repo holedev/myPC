@@ -1024,7 +1024,7 @@ const applicationsInit = [
             <div class="f-file__achievement">
                 <div class="f-file__achievement-grid grid">
                     <div class="f-file__achievement-heading">
-                        Một số thành tựu
+                        Liên hệ thực tế - Một số thành tựu
                     </div>
                     <div class="f-file__achievement-body">
                         <div class="achievement-tree">
@@ -1064,6 +1064,16 @@ const applicationsInit = [
                         tích cực của nhiều tổ chức quốc tế và
                         khu vực quan trọng.
                     </div>
+                    <div class="f-file__achievement-video">
+                                        <video
+                                            controls
+                                            src="./assets/video/video1.mp4"
+                                        ></video>
+                                        <video
+                                            controls
+                                            src="./assets/video/video2.mp4"
+                                        ></video>
+                                    </div>
                 </div>
                 <div class="f-file__achievement-show">
                     <div class="f-file__achievement-show__img">

@@ -967,3 +967,14 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+.f-file__achievement-video {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 60px;
+}
+
+.f-file__achievement-video video {
+    width: 500px;
+}
