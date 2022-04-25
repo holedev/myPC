@@ -549,6 +549,10 @@
 
 /* --------------------------------------- */
 
+.boxAppWrap {
+    overflow-y: scroll;
+}
+
 .boxApp {
     position: fixed;
     width: 60%;
@@ -556,8 +560,8 @@
     background: white;
     top: 50%;
     left: 50%;
-    /* transform: translate(-50%, 0) scale(0);
-    visibility: hidden; */
+    transform: translate(-50%, 0) scale(0);
+    visibility: hidden;
     transform: translate(-50%, -50%);
     transition: all ease 0.25s;
     z-index: 10;
@@ -601,7 +605,6 @@
 .boxApp-body {
     height: calc(100% - 32px);
     overflow-y: auto;
-    scroll-behavior: smooth !important;
 }
 
 /* -------------------------------------- */

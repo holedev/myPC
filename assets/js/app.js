@@ -44,12 +44,14 @@ const app = (() => {
             const htmls = this.appRunning
                 .map((app, index) => {
                     return `
-                    <div class="boxApp ${app.isActive ? "active" : ""}">
+                    <div class="boxApp ${
+                        applications[app.idxApp].fullScreen ? "full-screen" : ""
+                    } ${app.isActive ? "active" : ""}">
                         <div class="boxApp-head">
                             <div class="boxApp-head__icon">
                                 <i class="fa-solid fa-minus"></i>
                             </div>
-                            <div class="boxApp-head__icon">
+                            <div class="boxApp-head__icon restore">
                                 <i class="fa-regular fa-window-restore"></i>
                             </div>
                             <div data-index=${
@@ -135,7 +137,6 @@ const app = (() => {
             const heightMain = main.offsetHeight;
             const widthRightBox = rightBox.offsetWidth;
             const heightRightBox = rightBox.offsetHeight;
-
 
             //right click
             main.oncontextmenu = function (e) {
@@ -439,6 +440,12 @@ const app = (() => {
                 const closeApp = e.target.closest(
                     ".boxApp-head__icon.close-btn"
                 );
+                const restoreBtn = e.target.closest(
+                    ".boxApp-head__icon.restore"
+                );
+                const downloadBtn = e.target.closest(
+                    ".zalo-chat__item-file__download"
+                );
 
                 if (
                     !startIconE &&
@@ -459,6 +466,12 @@ const app = (() => {
                     $(".right-click").style.visibility = "hidden";
                 }
 
+                if (restoreBtn) {
+                    restoreBtn.parentElement.parentElement.classList.toggle(
+                        "full-screen"
+                    );
+                }
+
                 if (closeApp) {
                     closeApp.parentElement.parentElement.classList.remove(
                         "active"
@@ -475,6 +488,15 @@ const app = (() => {
                         ].isActive = 1;
                     }
                     _this.renderAppRunning();
+                }
+
+                if (downloadBtn) {
+                    applications[4].isDeleted = 0;
+                    localStorage.setItem(
+                        "applications",
+                        JSON.stringify(applications)
+                    );
+                    _this.renderApp();
                 }
             };
         },
