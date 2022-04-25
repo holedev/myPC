@@ -257,11 +257,14 @@
 .f-file__chap-8 {
 }
 
-.chap-8 {
+.chap-8,
+.chap-9 {
     padding: 40px 20px;
 }
 
-.chap-8__heading {
+.chap-8__heading,
+.chap-9__heading {
+    text-transform: uppercase;
     font-size: 4rem;
     font-weight: 700;
 }
@@ -276,6 +279,11 @@
 .chap-8__content-define {
     font-size: 1.6rem;
     color: #030303;
+}
+
+.chap-8__content-define-text span {
+    font-size: 1.8rem;
+    font-weight: 500;
 }
 
 .chap-8__content-right {
@@ -358,4 +366,117 @@
     list-style-type: disc;
     list-style-position: inside;
     margin-left: 12px;
+}
+
+.f-file__general {
+    background: #f0f2f5;
+}
+
+.general {
+    padding: 40px 12px;
+}
+
+.general-heading {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: right;
+}
+.general-img {
+    margin-top: 20px;
+}
+
+.f-file__chap-9 {
+}
+
+.chap-9 {
+}
+
+.chap-9__heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.chap-9__content {
+}
+.chap-9__content-define {
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.chap-9__content-define span {
+    width: 70%;
+    text-align: center;
+}
+
+.chap-9__content-list {
+    margin-top: 120px;
+    --gap: 20px;
+    display: flex;
+    align-items: center;
+    margin-left: calc(-1 * var(--gap));
+}
+
+.chap-9__content-item {
+    width: calc(25% - var(--gap));
+    margin-left: var(--gap);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.chap-9__content-item-img {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chap-9__content-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chap-9__content-item-text {
+    font-size: 1.4rem;
+    height: 3rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.f-file__ques {
+    background: #f0f2f5;
+}
+
+.f-file__ques-grid {
+    padding: 40px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.f-file__ques-img {
+    flex: 1;
+}
+
+.f-file__ques-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.f-file__ques-text {
+    flex: 1;
+    font-size: 3.2rem;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
