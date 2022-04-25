@@ -136,6 +136,7 @@ const app = (() => {
             const widthRightBox = rightBox.offsetWidth;
             const heightRightBox = rightBox.offsetHeight;
 
+
             //right click
             main.oncontextmenu = function (e) {
                 e.preventDefault();

@@ -24,6 +24,15 @@ body {
     min-height: 100vh;
 }
 
+.grid {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+img {
+    width: 100%;
+}
+
 .overplay {
     position: fixed;
     inset: 0;

@@ -560,6 +560,12 @@
     visibility: hidden; */
     transform: translate(-50%, -50%);
     transition: all ease 0.25s;
+    z-index: 10;
+}
+
+.boxApp.full-screen {
+    width: 100%;
+    height: 100%;
 }
 
 .boxApp.active {
@@ -594,6 +600,7 @@
 
 .boxApp-body {
     height: calc(100% - 32px);
+    overflow-y: auto;
 }
 
 /* -------------------------------------- */
