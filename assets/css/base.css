@@ -34,6 +34,18 @@ img {
     width: 100%;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-button {
+    height: 4px;
+}
+
 .overplay {
     position: fixed;
     inset: 0;

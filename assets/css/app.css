@@ -140,6 +140,7 @@
 .f-file__banner {
     position: relative;
     height: 100%;
+    background: #f0f2f5;
 }
 
 .f-file__banner-left {
@@ -148,6 +149,29 @@
     bottom: 0;
     left: 0;
     width: 50%;
+    animation: leftBanner ease-in-out 1s;
+}
+
+@keyframes leftBanner {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rightBanner {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .f-file__banner-right {
@@ -156,6 +180,7 @@
     bottom: 0;
     right: 0;
     width: 50%;
+    animation: rightBanner ease-in-out 1s;
 }
 
 .f-file__banner-left::after,
@@ -188,6 +213,18 @@
     align-items: center;
     gap: 12px;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: bannerText ease-in-out 0.7s;
+}
+
+@keyframes bannerText {
+    from {
+        transform: translate(-50%, -50%) translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) translateY(0);
+        opacity: 1;
+    }
 }
 
 .f-file__banner-text span:first-child {

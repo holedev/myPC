@@ -6,6 +6,7 @@ const $$ = document.querySelectorAll.bind(document);
         handle() {
             const icons = $$(".chap-8__content-head-icon");
             const itemsTree = $$(".achievement-tree__item");
+            const boxAppBD = $(".boxApp-body");
 
             icons.forEach((ic) => {
                 ic.onclick = function () {
@@ -29,6 +30,10 @@ const $$ = document.querySelectorAll.bind(document);
 
             $(".f-file__achievement-show .close-btn").onclick = function () {
                 $(".f-file__achievement-show").classList.remove("active");
+            };
+
+            boxAppBD.onscroll = function (e) {
+                
             };
         },
         start() {
