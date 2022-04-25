@@ -601,6 +601,7 @@
 .boxApp-body {
     height: calc(100% - 32px);
     overflow-y: auto;
+    scroll-behavior: smooth !important;
 }
 
 /* -------------------------------------- */

@@ -263,6 +263,22 @@
     margin-bottom: var(--gap);
 }
 
+.f-file__members.active .f-file__members-item {
+    animation: member ease 1s;
+}
+
+@keyframes member {
+    from {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
 .f-file__members-item__avt {
     width: 200px;
     height: 200px;
@@ -932,4 +948,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.f-file__scroll {
+    font-size: 2rem;
+    width: 44px;
+    height: 44px;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    cursor: pointer;
 }

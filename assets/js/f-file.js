@@ -32,8 +32,18 @@ const $$ = document.querySelectorAll.bind(document);
                 $(".f-file__achievement-show").classList.remove("active");
             };
 
+            const fFileList = $$(".f-file > div");
+
             boxAppBD.onscroll = function (e) {
-                
+                fFileList.forEach((fFile) => {
+                    const height = boxAppBD.offsetHeight;
+                    const x = fFile.getBoundingClientRect().top;
+                    if (height + e.target.scrollTop > x + 1000) {
+                        fFile.classList.add("active");
+                    } else {
+                        fFile.classList.remove("active");
+                    }
+                });
             };
         },
         start() {
