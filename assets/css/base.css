@@ -35,13 +35,14 @@ img {
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 6px;
 }
+
 ::-webkit-scrollbar-button {
     height: 4px;
 }
