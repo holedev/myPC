@@ -651,6 +651,17 @@
     top: 100%;
     right: 0;
     transform: translate(40%, -50%);
+    animation: rotate ease 1.5s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform:translate(40%, -50%) rotate(-5deg);
+    } 50% {
+        transform:translate(40%, -50%) rotate(5deg);
+    } 100% {
+        transform:translate(40%, -50%) rotate(-5deg);
+    }
 }
 
 .summary-left__item {
@@ -711,6 +722,18 @@
     top: 50%;
     right: 0;
     transform: translate(90%, -75%);
+    animation: rotate2 ease 1.5s infinite;
+    
+}
+
+@keyframes rotate2 {
+    0% {
+        transform:translate(90%, -75%) rotate(-5deg);
+    } 50% {
+        transform:translate(90%, -75%) rotate(5deg);
+    } 100% {
+        transform:translate(90%, -75%) rotate(-5deg);
+    }
 }
 
 .summary-right__positive {
