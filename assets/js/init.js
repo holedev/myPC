@@ -287,7 +287,7 @@ const applicationsInit = [
                                 class="f-file__members-item__avt"
                             >
                                 <img
-                                    src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/277756160_3144075439177503_6239568935394867767_n.jpg?stp=dst-jpg_p200x200&_nc_cat=107&ccb=1-5&_nc_sid=7206a8&_nc_ohc=Q1ZZUIPFLNAAX84ndsH&_nc_ht=scontent.fsgn5-10.fna&oh=00_AT8TvTBm5OZm3s7tvfNds_7YKp0GLuNT0OS8ij4v9VureQ&oe=626AD026"
+                                    src="./assets/img/mem/PLH.jpg"
                                     alt=""
                                 />
                             </div>
@@ -307,7 +307,7 @@ const applicationsInit = [
                                 class="f-file__members-item__avt"
                             >
                                 <img
-                                    src="https://scontent.fsgn13-1.fna.fbcdn.net/v/t1.6435-1/133766758_1362682987418655_3109540068807833952_n.jpg?stp=dst-jpg_p200x200&_nc_cat=107&ccb=1-5&_nc_sid=7206a8&_nc_ohc=uj4lmuxtcwMAX-mRqxY&tn=M3m1b8RT_xV2LiX0&_nc_ht=scontent.fsgn13-1.fna&oh=00_AT_7SWLrVmPeultYf6id1LEVSNt-lk-eGX1e0P44uSUNOQ&oe=628C220A"
+                                    src="./assets/img/mem/TTN.jpg"
                                     alt=""
                                 />
                             </div>
@@ -327,7 +327,7 @@ const applicationsInit = [
                                 class="f-file__members-item__avt"
                             >
                                 <img
-                                    src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t39.30808-1/273664175_2737837586526089_7076932941902617434_n.jpg?stp=dst-jpg_s200x200&_nc_cat=106&ccb=1-5&_nc_sid=7206a8&_nc_ohc=b7kmaqaD9xgAX-PFiL1&_nc_ht=scontent.fsgn13-2.fna&oh=00_AT_ev8sTlmMqm8qtvHHl2EXUXMR4bUToQdZqwgQUD0spVQ&oe=626BDD70"
+                                    src="./assets/img/mem/LMD.jpg"
                                     alt=""
                                 />
                             </div>
