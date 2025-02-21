@@ -8,6 +8,8 @@ const app = (() => {
     const applications =
         JSON.parse(localStorage.getItem("applications")) || applicationsInit;
 
+    const _DEFAULT_PASSWORD = "0000"
+
     return {
         appRunning: [],
         renderIcon() {
@@ -235,7 +237,7 @@ const app = (() => {
 
             inputPIN.oninput = function () {
                 const value = this.value.trim();
-                if (value == "1410") {
+                if (value == _DEFAULT_PASSWORD) {
                     this.value = null;
                     loadingScreen("Starting");
                     setTimeout(pcScreen, 3000);
